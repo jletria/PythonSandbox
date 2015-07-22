@@ -1,18 +1,11 @@
 __author__ = 'Jorge Letria'
 
-helloWorld = 'Hello' + " " + 'World'
-helloWorld += '!'
-print(helloWorld)
+import wordanalysis
+WordAnalysis = wordanalysis.WordAnalysis
 
-helloWorld += (' (world...)' * 3)
+def main():
+    BOOK = r'X:\Home\Documents\PythonTexts\animalfarm.txt'
+    wa = WordAnalysis(BOOK)
+    wa.ListWords()
 
-print(helloWorld)
-
-helloWorld = ('Hello' ' ' 'World!')
-
-print(helloWorld)
-
-helloWorld = helloWorld[0:4]
-
-print(helloWorld)
-
+main()
