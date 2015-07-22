@@ -16,9 +16,9 @@ class WordAnalysis:
 
         def __init__(self, textFilePath = None):
             if(textFilePath != None):
-                self.LoadTextFile(textFilePath)
+                self.Initialize(textFilePath)
 
-        def LoadTextFile(self, textFilePath):
+        def Initialize(self, textFilePath):
             self.TextFilePath = textFilePath
             self.LoadText()
             self.LoadCommonWords()
