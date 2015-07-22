@@ -58,15 +58,15 @@ class WordAnalysis:
             for x in self.WordList:
                 if not x in wc: wc[x] = 1
                 else: wc[x] += 1
-            self.WordCountInSync = True;
+            self.WordCountInSync = True
 
         def ListWordCount(self):
             sorted_x = sorted(self.WordCount.items(), key=operator.itemgetter(1), reverse=True)
             ret = ''
             for x in sorted_x: ret += x[0] + ': ' + str(x[1]) + '\n'
-            return ret;
+            return ret
 
         def ListWords(self):
             ret = ''
             for x in self.WordList: ret += x + '\n'
-            return ret;
+            return ret
