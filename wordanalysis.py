@@ -5,6 +5,7 @@ class WordAnalysis:
         Text = None
         WordList = None
         WordCount = None
+        CommonWords = None
         WordListSyncedToText = False
         WordCountInSync = False
 
@@ -20,13 +21,20 @@ class WordAnalysis:
         def LoadTextFile(self, textFilePath):
             self.TextFilePath = textFilePath
             self.LoadText()
+            self.LoadCommonWords()
             self.ProcessTextToList()
             self.ProcessWordCount()
 
+        def FileToStr(self, filePath):
+            with open (filePath, "r") as textFile:
+                return textFile.read()
+
         def LoadText(self):
-            with open (self.TextFilePath, "r") as textFile:
-                self.Text=textFile.read()
+            self.Text=self.FileToStr(self.TextFilePath)
             self.WordListSyncedToText = False
+
+        def LoadCommonWords(self):
+            self.CommonWords=self.FileToStr('commonwords.txt').lower().split('\n')
 
         def PrintFileContent(self):
             print(self.Text)
@@ -39,10 +47,10 @@ class WordAnalysis:
             localWordList = localText.split(' ')
             self.WordList = []
             for x in localWordList:
-                if not x.isspace() and x != '' :
+                if (not x.isspace()) and (x != '') and (x not in self.CommonWords) :
                     self.WordList.append(x.strip(' '))
             self.WordListSyncedToText = True
-            self.WordCountInSync = False;
+            self.WordCountInSync = False
 
         def ProcessWordCount(self):
             if not self.WordListIsLoaded or self.WordCountInSync: return
