@@ -4,8 +4,10 @@ import wordanalysis
 WordAnalysis = wordanalysis.WordAnalysis
 
 def main():
-    BOOK = r'X:\Home\Documents\PythonTexts\animalfarm.txt'
+    BOOK = r'animalfarm.txt'
     wa = WordAnalysis(BOOK)
-    wa.ListWords()
+    wordCount = wa.ListWordCount()
+    with open (BOOK.rstrip('.txt') + '_wordcount.txt', "w") as textFile:
+        textFile.write(wordCount)
 
 main()

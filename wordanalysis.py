@@ -1,14 +1,17 @@
 __author__ = 'Jorge Letria'
-import re
-
+import operator
 
 class WordAnalysis:
         Text = None
         WordList = None
+        WordCount = None
+        WordListSyncedToText = False
+        WordCountInSync = False
 
         @property
-        def FileIsLoaded(self):
-            return (self.Text != None)
+        def FileIsLoaded(self): return (self.Text != None)
+        @property
+        def WordListIsLoaded(self): return (self.WordList != None)
 
         def __init__(self, textFilePath = None):
             if(textFilePath != None):
@@ -18,32 +21,45 @@ class WordAnalysis:
             self.TextFilePath = textFilePath
             self.LoadText()
             self.ProcessTextToList()
+            self.ProcessWordCount()
 
         def LoadText(self):
             with open (self.TextFilePath, "r") as textFile:
                 self.Text=textFile.read()
+            self.WordListSyncedToText = False
 
         def PrintFileContent(self):
             print(self.Text)
 
         def ProcessTextToList(self):
-            localWordList = self.Text\
-                .replace('\n', ' ')\
-                .replace('.', ' ')\
-                .replace(',', ' ')\
-                .replace('?', ' ')\
-                .replace('!', ' ')\
-                .replace(';', ' ')\
-                .replace('-', ' ')\
-                .replace('"', ' ')\
-                .replace("'s", ' ')\
-                .replace(':', ' ')\
-                .replace("'", ' ')\
-                .split(' ')
+            if not self.FileIsLoaded or self.WordListSyncedToText: return;
+            localText = self.Text.lower()
+            undesirableCharacters = ['\n', '.', ',', '?', '!', ';', '-', '"', "'s", ':', "'"]
+            for ch in undesirableCharacters: localText = localText.replace(ch, ' ')
+            localWordList = localText.split(' ')
             self.WordList = []
             for x in localWordList:
                 if not x.isspace() and x != '' :
-                    self.WordList.append(x.strip(' ').lower())
+                    self.WordList.append(x.strip(' '))
+            self.WordListSyncedToText = True
+            self.WordCountInSync = False;
+
+        def ProcessWordCount(self):
+            if not self.WordListIsLoaded or self.WordCountInSync: return
+            wc = self.WordCount = {}
+            for x in self.WordList:
+                if not x in wc: wc[x] = 1
+                else: wc[x] += 1
+            self.WordCountInSync = True;
+
+        def ListWordCount(self):
+            sorted_x = sorted(self.WordCount.items(), key=operator.itemgetter(1), reverse=True)
+            ret = ''
+            for x in sorted_x: ret += x[0] + ': ' + str(x[1]) + '\n'
+            return ret;
+            #for x, y in dict(sorted_x).items(): print(x + ': ' + str(y))
 
         def ListWords(self):
-            for x in self.WordList: print(x)
+            ret = ''
+            for x in self.WordList: ret += x + '\n'
+            return ret;
