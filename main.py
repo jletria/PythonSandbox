@@ -1,3 +1,18 @@
 __author__ = 'Jorge Letria'
-print("Hello World!")
+
+helloWorld = 'Hello' + " " + 'World'
+helloWorld += '!'
+print(helloWorld)
+
+helloWorld += (' (world...)' * 3)
+
+print(helloWorld)
+
+helloWorld = ('Hello' ' ' 'World!')
+
+print(helloWorld)
+
+helloWorld = helloWorld[0:4]
+
+print(helloWorld)
 
