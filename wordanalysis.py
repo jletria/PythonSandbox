@@ -57,7 +57,6 @@ class WordAnalysis:
             ret = ''
             for x in sorted_x: ret += x[0] + ': ' + str(x[1]) + '\n'
             return ret;
-            #for x, y in dict(sorted_x).items(): print(x + ': ' + str(y))
 
         def ListWords(self):
             ret = ''
