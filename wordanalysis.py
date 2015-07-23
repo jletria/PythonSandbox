@@ -1,6 +1,7 @@
 __author__ = 'Jorge Letria'
 import operator
 
+
 class WordAnalysis:
         Text = None
         WordList = None
@@ -10,12 +11,12 @@ class WordAnalysis:
         WordCountInSync = False
 
         @property
-        def FileIsLoaded(self): return (self.Text != None)
+        def FileIsLoaded(self): return self.Text is not None
         @property
-        def WordListIsLoaded(self): return (self.WordList != None)
+        def WordListIsLoaded(self): return self.WordList is not None
 
-        def __init__(self, textFilePath = None):
-            if(textFilePath != None):
+        def __init__(self, textFilePath=None):
+            if(textFilePath is not None):
                 self.Initialize(textFilePath)
 
         def Initialize(self, textFilePath):
